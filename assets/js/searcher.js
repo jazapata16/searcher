@@ -35,9 +35,7 @@
 
                         document.getElementById("img"+(i+1)).src="";
 
-                    console.log(products[i]["type"]);
                     if (products[i]["type"] === valores){
-                        console.log(products[i]);
                         
                         let name=document.getElementById("name"+(indice));
                         name.innerHTML=products[i]['name'] ;
@@ -61,23 +59,22 @@
             fetch(myURL2)
             .then(response=> response.text())
             .then(result=>{
-                for (i = 0; i < result.length; i++){
 
-                    console.log(products[i]["type"]);
-                    if (products[i]["type"] === valores){
-                        console.log(products[i]);
-                        
-                        let name=document.getElementById("name"+(i+1));
-                        name.innerHTML=products[i]['name'] ;
+                let xml = (new DOMParser()).parseFromString(result, 'application/xml');
+                let arrProducts = xml.getElementsByTagName("product") 
 
-                        let type=document.getElementById("type"+(i+1));
-                        type.innerHTML=products[i]['type'];
-                        
-                        let price=document.getElementById("price"+(i+1));
-                        price.innerHTML=products[i]["price"];
+                console.log(arrProducts);
+                
 
-                        document.getElementById("img"+(i+1)).src=products[i]["src"];
+
+                for (i = 0; i < arrProducts.length; i++){
+                    
+                    console.log(arrProducts[i].innerHTML);
+
+                    if (arrProducts[i].getElementsByTagName("type").outerHTML === valores){
+                        console.log(arrProducts[i].getElementsByTagName("type").outerHTML);
                     }
+
                 }  
 
 
